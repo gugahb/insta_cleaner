@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  insta_cleaner:
+    build: .
+    volumes:
+      - ./app:/app
+      - ./app/cookies:/app/cookies
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
