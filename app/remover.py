@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 from utils import verificar_status_perfil
-from remover_depois import adicionar_para_remover
+from remover_depois import adicionar_para_remover, remover_usuario_da_lista
 
 def analisar_seguidor(page, username):
     try:
@@ -74,6 +74,10 @@ def remover_seguidor_por_busca(page, username, perfil="gugahb"):
         no_result = page.query_selector("text=No results found.")
         if no_result:
             print(f"⚠️ @{username} não encontrado na sua lista de seguidores.")
+            print(f"🗑️ Removendo @{username} automaticamente da lista remover_depois.json...")
+            remover_usuario_da_lista(username)
+            log_remocao(username, "usuario_nao_encontrado_removido_da_lista")
+            print(f"✅ @{username} removido da lista com sucesso!")
             return False
 
         link_usuario = page.query_selector(f"a[href='/{username.lower()}/']")
@@ -101,3 +105,29 @@ def log_remocao(username, motivo):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open("remocoes_log.csv", "a") as f:
         f.write(f"{timestamp},@{username},{motivo}\n")
+
+
+def processar_usuario_nao_encontrado(username):
+    """
+    Processa usuários que não são mais encontrados na busca do Instagram.
+    Remove automaticamente da lista remover_depois.json.
+    """
+    print(f"🔍 Processando @{username} não encontrado...")
+    
+    # Verifica se o usuário está na lista
+    from remover_depois import carregar_remover_depois
+    dados = carregar_remover_depois()
+    
+    if username not in dados:
+        print(f"⚠️ @{username} não está na lista remover_depois.json")
+        return False
+    
+    # Remove da lista
+    print(f"🗑️ Removendo @{username} da lista remover_depois.json...")
+    remover_usuario_da_lista(username)
+    
+    # Registra no log
+    log_remocao(username, "usuario_nao_encontrado_removido_automaticamente")
+    
+    print(f"✅ @{username} processado com sucesso - removido da lista!")
+    return True

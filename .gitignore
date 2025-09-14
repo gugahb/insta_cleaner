@@ -1,0 +1,67 @@
+# 🔒 Dados pessoais e sensíveis
+cookies/
+*.csv
+*.json
+*_log.*
+seguidores_*
+remover_*
+analisados.*
+_removerdpois.*
+
+# 🐍 Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 📊 Logs e dados temporários
+*.log
+*.tmp
+*.temp
+temp/
+logs/
+
+# 🔧 IDEs e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 🖥️ Sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 🌐 Ambientes virtuais
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# 🐳 Docker
+.dockerignore
+docker-compose.override.yml
